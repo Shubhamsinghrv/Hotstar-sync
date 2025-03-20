@@ -38,6 +38,7 @@ def handle_update(data):
 
 # Run the server
 if __name__ == "__main__":
-    print("🚀 Flask-SocketIO Server Running on port 5001")
-    socketio.run(app, host="0.0.0.0", port=5001, debug=True, allow_unsafe_werkzeug=True)
+    PORT = int(os.environ.get("PORT", 10000))  # Render assigns a dynamic port
+    print(f"🚀 Flask-SocketIO Server Running on port {PORT}")
+    socketio.run(app, host="0.0.0.0", port=PORT, debug=True, allow_unsafe_werkzeug=True)
 
