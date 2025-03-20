@@ -1,6 +1,5 @@
 import os
 from flask import Flask
-import eventlet
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 
@@ -9,8 +8,8 @@ app = Flask(__name__)
 # Enable CORS to avoid cross-origin issues
 CORS(app, supports_credentials=True)
 
-# Initialize SocketIO with CORS support
-socketio = SocketIO(app, cors_allowed_origins="*")
+# Initialize SocketIO with gevent async mode
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
 
 # Store the video state
 video_state = {
@@ -41,5 +40,5 @@ def handle_update(data):
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", 10000))  # Render assigns a dynamic port
     print(f"🚀 Flask-SocketIO Server Running on port {PORT}")
-    socketio.run(app, host="0.0.0.0", port=PORT, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="0.0.0.0", port=PORT, debug=True)  # Removed allow_unsafe_werkzeug
 
