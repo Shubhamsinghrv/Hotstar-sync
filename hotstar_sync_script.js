@@ -1,6 +1,6 @@
 // Inject Socket.IO from localhost
 const script = document.createElement("script");
-script.src = "http://localhost:5001/socket.io/socket.io.js"; // Load from local server
+script.src = "https://hotstar-sync.onrender.com/socket.io/socket.io.js"; // Load from local server
 script.onload = () => {
     console.log("✅ Socket.IO Loaded Locally!");
     initSocket(); // Start syncing after loading
@@ -8,7 +8,7 @@ script.onload = () => {
 document.head.appendChild(script);
 
 function initSocket() {
-    const socket = io("http://localhost:5001", {
+    const socket = io("https://hotstar-sync.onrender.com", {
         transports: ["websocket", "polling"],
         withCredentials: true
     });
