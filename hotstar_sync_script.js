@@ -1,18 +1,17 @@
-// Inject Socket.IO
+// Inject Socket.IO from localhost
 const script = document.createElement("script");
-script.src = "https://cdn.socket.io/4.7.2/socket.io.min.js"; // Use latest version
+script.src = "http://localhost:5001/socket.io/socket.io.js"; // Load from local server
 script.onload = () => {
-    console.log("✅ Socket.IO Loaded!");
+    console.log("✅ Socket.IO Loaded Locally!");
     initSocket(); // Start syncing after loading
 };
 document.head.appendChild(script);
 
 function initSocket() {
-    const socket = io("https://940f-2409-40c2-1163-8b27-3d70-cb74-9873-ae6e.ngrok-free.app", {
-    transports: ["websocket", "polling"],
-    withCredentials: true
-     });
-
+    const socket = io("http://localhost:5001", {
+        transports: ["websocket", "polling"],
+        withCredentials: true
+    });
 
     console.log("✅ Socket initialized!", socket);
 
@@ -42,14 +41,17 @@ function initSocket() {
         });
     }
 
-    // Monitor play, pause, and seek events
-    setInterval(() => {
+    // Attach event listeners once when the video is loaded
+    document.addEventListener("DOMContentLoaded", () => {
         const video = document.querySelector("video");
         if (video) {
-            video.onplay = sendUpdate;
-            video.onpause = sendUpdate;
-            video.onseeked = sendUpdate;
+            video.addEventListener("play", sendUpdate);
+            video.addEventListener("pause", sendUpdate);
+            video.addEventListener("seeked", sendUpdate);
         }
-    }, 1000);
+    });
+
+    // Send periodic updates every second
+    setInterval(sendUpdate, 1000);
 }
 
