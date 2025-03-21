@@ -1,6 +1,6 @@
 // Inject Socket.IO from localhost
 const script = document.createElement("script");
-script.src = "https://hotstar-sync.onrender.com/socket.io/socket.io.js"; // Load from local server
+script.src = "https://cdn.socket.io/3.1.3/socket.io.min.js"; // Load from local server
 script.onload = () => {
     console.log("✅ Socket.IO Loaded Locally!");
     initSocket(); // Start syncing after loading
