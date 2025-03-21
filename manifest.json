@@ -16,15 +16,15 @@
     "content_scripts": [
         {
             "matches": ["https://www.hotstar.com/*"],
-            "js": ["content.js","socket.io.js"]
+            "js": ["content.js"]
         }
     ],
-   "web_accessible_resources": [
-        {
-        "resources": ["hotstar_sync_script.js"],
-        "matches": ["https://www.hotstar.com/*"]
-         }
-    ],
+    "web_accessible_resources": [
+       {
+    "resources": ["hotstar_sync_script.js"],
+    "matches": ["https://www.hotstar.com/*"]
+       }
+    ]
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
