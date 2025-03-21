@@ -24,7 +24,7 @@
     "resources": ["hotstar_sync_script.js"],
     "matches": ["https://www.hotstar.com/*"]
        }
-    ]
+    ],
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
