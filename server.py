@@ -1,22 +1,17 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room
 from gevent import monkey
 
-monkey.patch_all()  # ✅ Required for gevent to work properly
+monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-
-# ✅ Use gevent as async_mode
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode="gevent")
 
-# 🧠 Shared video state
-video_state = {
-    "timestamp": 0,
-    "is_playing": False
-}
+# 🧠 One state per room
+room_states = {}
 
 @app.route("/")
 def home():
@@ -25,17 +20,32 @@ def home():
 @socketio.on("connect")
 def handle_connect():
     print("🔵 A user connected")
-    emit("sync", video_state)
+
+@socketio.on("join")
+def on_join(data):
+    room = data.get("room")
+    join_room(room)
+    print(f"🟢 User joined room: {room}")
+
+    if room in room_states:
+        emit("sync", { "room": room, **room_states[room] }, to=room)
 
 @socketio.on("update")
 def handle_update(data):
-    global video_state
-    video_state = data
-    print(f"🔄 Syncing video: {video_state}")
-    socketio.emit("sync", video_state)
+    room = data.get("room")
+    if not room:
+        return
+
+    room_states[room] = {
+        "timestamp": data["timestamp"],
+        "is_playing": data["is_playing"]
+    }
+
+    print(f"🔄 Syncing room {room}: {room_states[room]}")
+    socketio.emit("sync", { "room": room, **room_states[room] }, to=room)
 
 if __name__ == "__main__":
     PORT = int(os.environ.get("PORT", 10000))
-    print(f"🚀 Flask-SocketIO Server Running on port {PORT}")
+    print(f"🚀 Server running on port {PORT}")
     socketio.run(app, host="0.0.0.0", port=PORT)
 
