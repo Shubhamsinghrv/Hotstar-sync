@@ -29,7 +29,7 @@ def handle_update(data):
     global video_state
     video_state = data
     print(f"🔄 Syncing video: {video_state}")
-    socketio.emit("sync", video_state, broadcast=True, include_self=False)  # 🚫 Skip sender
+    socketio.emit("sync", video_state, skip_sid=request.sid)  # 🚫 Skip sender
 
 if __name__ == "__main__":
     print("🚀 Flask-SocketIO Server Running on port 5001")
