@@ -1,7 +1,7 @@
 import os
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
-from flask_socketio import SocketIO, emit, request
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
