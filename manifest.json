@@ -1,41 +1,41 @@
 {
-    "manifest_version": 3,
-    "name": "Hotstar Sync",
-    "version": "1.0",
-    "permissions": [
-        "scripting",
-        "storage",
-        "activeTab"
-    ],
-    "host_permissions": [
-        "https://www.hotstar.com/*",
-        "https://hotstar-sync.onrender.com/*"
-    ],
-    "background": {
-        "service_worker": "background.js"
-    },
-    "content_scripts": [
-        {
-            "matches": ["https://www.hotstar.com/*"],
-            "js": ["content.js","socket.io.js"]
-        }
-    ],
-   "web_accessible_resources": [
-        {
-        "resources": ["hotstar_sync_script.js"],
-        "matches": ["https://www.hotstar.com/*"]
-         }
-    ],
-   "content_security_policy": {
-         "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://hotstar-sync.onrender.com"
-        }
-    "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "icon.png",
-            "48": "icon.png",
-            "128": "icon.png"
-        }
+  "manifest_version": 3,
+  "name": "Hotstar Sync",
+  "version": "1.0",
+  "permissions": [
+    "scripting",
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.hotstar.com/*",
+    "https://hotstar-sync.onrender.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.hotstar.com/*"],
+      "js": ["content.js", "socket.io.js"]
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["hotstar_sync_script.js"],
+      "matches": ["https://www.hotstar.com/*"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://hotstar-sync.onrender.com"
+  }
 }
 
