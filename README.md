@@ -117,3 +117,8 @@ Built with ❤️ using:
 - **Socket.IO**
 - **Chrome Extensions API**
 
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
