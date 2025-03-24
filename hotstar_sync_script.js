@@ -8,7 +8,7 @@ script.onload = () => {
 document.head.appendChild(script);
 
 function initSocket() {
-    const socket = io("http://localhost:5001", {
+    const socket = io("https://hotstar-sync.onrender.com", {
         transports: ["websocket", "polling"],
         withCredentials: true
     });

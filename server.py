@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -38,5 +39,6 @@ def handle_update(data):
 # Run the server
 if __name__ == "__main__":
     print("🚀 Flask-SocketIO Server Running on port 5001")
-    socketio.run(app, host="0.0.0.0", port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    socketio.run(app, host="0.0.0.0", port=port, debug=True)
 

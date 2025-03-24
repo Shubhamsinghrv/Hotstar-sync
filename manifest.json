@@ -8,7 +8,8 @@
         "activeTab"
     ],
     "host_permissions": [
-        "https://www.hotstar.com/*"
+        "https://www.hotstar.com/*",
+        "https://hotstar-sync.onrender.com/*"
     ],
     "background": {
         "service_worker": "background.js"
@@ -25,6 +26,9 @@
         "matches": ["https://www.hotstar.com/*"]
          }
     ],
+   "content_security_policy": {
+         "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://hotstar-sync.onrender.com"
+        }
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
